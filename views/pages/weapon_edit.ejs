@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include ../partials/head %>
+  </head>
+
+  <body>
+      <nav class="navbar navbar-inverse navbar-fixed-top">
+      <%- include ../partials/nav %>
+    </nav>
+    <main>
+
+
+    <div class="container">
+
+      <div class="starter-template">
+        <h1>EDIT A WEAPON</h1>
+        <p class="lead">Use this form to build a weapon.</p>
+        <form class="form-horizontal" action="/weapons" method="POST">
+        <fieldset>
+
+
+        <!-- Text input-->
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="name">Weapon Name</label>
+          <div class="col-md-6">
+          <input id="name" name="name" type="text" placeholder="placeholder" class="form-control input-md" required="">
+          <span class="help-block">Please name your weapon.</span>
+          </div>
+        </div>
+
+        <!-- Select Basic -->
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="engine">Engine</label>
+          <div class="col-md-6">
+            <select id="engine" name="engine" class="form-control">
+              <option value="1">Mechanical</option>
+              <option value="2">Combustion</option>
+              <option value="3">Plasma</option>
+              <option value="4">Cold Fusion</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Select Basic -->
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="receiver">Receiver</label>
+          <div class="col-md-6">
+            <select id="receiver" name="receiver" class="form-control">
+              <option value="1">Zwei</option>
+              <option value="2">Claymore</option>
+              <option value="3">Sabre</option>
+              <option value="4">Stiletto</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Select Basic -->
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="barrel">Barrel</label>
+          <div class="col-md-6">
+            <select id="barrel" name="barrel" class="form-control">
+              <option value="1">Sniper</option>
+              <option value="2">Rifle</option>
+              <option value="3">SMG</option>
+              <option value="4">Pistol</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Select Basic -->
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="stock">Stock</label>
+          <div class="col-md-6">
+            <select id="stock" name="stock" class="form-control">
+              <option value="1">Marksman</option>
+              <option value="2">Full</option>
+              <option value="3">Short</option>
+              <option value="4">None</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Button -->
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="submit">Submit</label>
+          <div class="col-md-4">
+            <button id="submit" type="submit" class="btn btn-lg btn-success">Build it!</button>
+          </div>
+        </div>
+
+        </fieldset>
+        </form>
+
+      </div>
+
+    </div><!-- /.container -->
+
+    </main>
+
+  </body>
+</html>

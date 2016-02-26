@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <%- include ../partials/head %>
+  </head>
+  <body>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <%- include ../partials/nav %>
+    </nav>
+    <main>
+      <div class="container">
+      <ul>
+        <% for(var i = 0; i < results.length; i++){ %>
+          <li><a href="/weapons/<%= results[i].weaponid %>"><%= results[i].weaponid %> <%=results[i].name %></a></li>
+        <% } %>
+      </ul>
+    </div>
+    </main>
+  </body>
+</html>

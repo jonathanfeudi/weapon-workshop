@@ -11,11 +11,12 @@ DROP TABLE if exists engines CASCADE;
 
 CREATE TABLE weapons (
   weaponid serial PRIMARY KEY UNIQUE,
+  userid integer REFERENCES users,
   name VARCHAR(255),
+  engineid integer REFERENCES engines,
+  receiverid integer REFERENCES receivers,
   barrelid integer REFERENCES barrels,
-  stockid integer REFERENCES stocks,
-  receiversid integer REFERENCES receivers,
-  engineid integer REFERENCES engines
+  stockid integer REFERENCES stocks
 );
 
 CREATE TABLE barrels (
