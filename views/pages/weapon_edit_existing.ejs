@@ -24,7 +24,7 @@
         <div class="form-group">
           <label class="col-md-4 control-label" for="name">Weapon Name</label>
           <div class="col-md-6">
-          <input id="name" name="name" type="text" placeholder="placeholder" class="form-control input-md" required="">
+          <input id="name" name="name" type="text" placeholder="placeholder" class="form-control input-md" required=""value=<%= weapon[0].name %>>
           <span class="help-block">Please name your weapon.</span>
           </div>
         </div>
@@ -34,10 +34,14 @@
           <label class="col-md-4 control-label" for="engine">Engine</label>
           <div class="col-md-6">
             <select id="engine" name="engine" class="form-control">
-              <option value="1">Mechanical</option>
-              <option value="2">Combustion</option>
-              <option value="3">Plasma</option>
-              <option value="4">Cold Fusion</option>
+              <% for(var i = 0; i < engines.length; i++){ %>
+                <option value=<%= engines[i].engineid %>
+                  <% if (weapon[0].engineid == engines[i].engineid){ %>
+                    <%= selected="selected" %>
+                    <% } %>
+                    >
+                  <%= engines[i].name %> </option>
+                <% } %>
             </select>
           </div>
         </div>
@@ -47,10 +51,14 @@
           <label class="col-md-4 control-label" for="receiver">Receiver</label>
           <div class="col-md-6">
             <select id="receiver" name="receiver" class="form-control">
-              <option value="1">Zwei</option>
-              <option value="2">Claymore</option>
-              <option value="3">Sabre</option>
-              <option value="4">Stiletto</option>
+              <% for(var i = 0; i < receivers.length; i++){ %>
+                <option value=<%= receivers[i].receiverid %>
+                  <% if (weapon[0].receiverid == receivers[i].receiverid){ %>
+                    <%= selected="selected" %>
+                    <% } %>
+                    >
+                  <%= receivers[i].name %> </option>
+                <% } %>
             </select>
           </div>
         </div>
@@ -60,10 +68,14 @@
           <label class="col-md-4 control-label" for="barrel">Barrel</label>
           <div class="col-md-6">
             <select id="barrel" name="barrel" class="form-control">
-              <option value="1">Sniper</option>
-              <option value="2">Rifle</option>
-              <option value="3">SMG</option>
-              <option value="4">Pistol</option>
+              <% for(var i = 0; i < barrels.length; i++){ %>
+                <option value=<%= barrels[i].barrelid %>
+                  <% if (weapon[0].barrelid == barrels[i].barrelid){ %>
+                    <%= selected="selected" %>
+                    <% } %>
+                    >
+                  <%= barrels[i].name %> </option>
+                <% } %>
             </select>
           </div>
         </div>
@@ -73,10 +85,14 @@
           <label class="col-md-4 control-label" for="stock">Stock</label>
           <div class="col-md-6">
             <select id="stock" name="stock" class="form-control">
-              <option value="1">Marksman</option>
-              <option value="2">Full</option>
-              <option value="3">Short</option>
-              <option value="4">None</option>
+              <% for(var i = 0; i < stocks.length; i++){ %>
+                <option value=<%= stocks[i].stockid %>
+                  <% if (weapon[0].stockid == stocks[i].stockid){ %>
+                    <%= selected="selected" %>
+                    <% } %>
+                    >
+                  <%= stocks[i].name %> </option>
+                <% } %>
             </select>
           </div>
         </div>
@@ -95,7 +111,6 @@
       </div>
 
     </div><!-- /.container -->
-
     </main>
   </body>
 </html>

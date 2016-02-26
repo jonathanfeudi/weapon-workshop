@@ -30,16 +30,15 @@ weapons.get('/arsenal',function(req, res, next){
 
 weapons.route('/:weaponid')
   .get(db.displayWeaponStats, function(req,res){
-    var ID = req.params.weaponid;
     console.log(res.rows)
     res.send(res.rows)
   })
-  .delete(function(req,res){
-    res.send('DELETE /:weaponid')
+  .delete(db.deleteWeapon, function(req,res){
+    res.redirect('/weapons/arsenal')
   })
 
-weapons.get('/:weaponid/edit', function(req,res){
-  res.send('GET /:weaponid/edit')
+weapons.get('/:weaponid/edit', db.grabAllParts, db.grabWeapon, function(req,res){
+  res.render('pages/weapon_edit_existing', {session: req.session, engines: res.engines, receivers: res.receivers, barrels: res.barrels, stocks: res.stocks, weapon: res.weapon})
 });
 
 module.exports = weapons;
