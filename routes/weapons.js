@@ -7,10 +7,10 @@ var pgSession = require('connect-pg-simple');
 
 weapons.route('/')
   .get(function(req,res){
-    res.send('GET /weapons route')
+    res.redirect('/home')
   })
   .post(db.createWeapon, function(req,res){
-    res.send('POST /weapons route')
+    res.redirect('/weapons/arsenal')
   })
 
 weapons.get('/new', function(req,res){
@@ -19,6 +19,7 @@ weapons.get('/new', function(req,res){
 
 weapons.get('/arsenal',function(req, res, next){
   if(req.session.user){
+    console.log(req.session.user)
     next()
   }
   else {
@@ -30,16 +31,15 @@ weapons.get('/arsenal',function(req, res, next){
 
 weapons.route('/:weaponid')
   .get(db.displayWeaponStats, function(req,res){
-    var ID = req.params.weaponid;
     console.log(res.rows)
     res.send(res.rows)
   })
-  .delete(function(req,res){
-    res.send('DELETE /:weaponid')
+  .delete(db.deleteWeapon, function(req,res){
+    res.redirect('/weapons/arsenal')
   })
 
-weapons.get('/:weaponid/edit', function(req,res){
-  res.send('GET /:weaponid/edit')
+weapons.get('/:weaponid/edit', db.grabAllParts, db.grabWeapon, function(req,res){
+  res.render('pages/weapon_edit_existing', {session: req.session, engines: res.engines, receivers: res.receivers, barrels: res.barrels, stocks: res.stocks, weapon: res.weapon})
 });
 
 module.exports = weapons;

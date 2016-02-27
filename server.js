@@ -44,7 +44,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use( logger('dev') );
 
 //initialize method-override
-//method-override will look for '_method' in the action="/route_method:DELETE" route from a form using method="post", then change the method to DELETE in this case
+//method-override will look for '_method' in the action="/route_method=DELETE" route from a form using method="post", then change the method to DELETE in this case
 app.use(methodOverride('_method'));
 
 /*Views*/

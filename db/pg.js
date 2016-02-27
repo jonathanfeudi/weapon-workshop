@@ -28,27 +28,27 @@ function loginUser(req,res,next) {
   })
 }
 
-function createSecure(email, password, callback) {
+function createSecure(email, password, admin, callback) {
   //hashing the password given by user
   bcrypt.genSalt(function(err, salt){
     bcrypt.hash(password, salt, function(err, hash){
       //callback saves the email and hashed password to DB
-      callback(email, hash)
+      callback(email, hash, admin)
     })
   })
 };
 
 
 function createUser(req, res, next) {
-  createSecure(req.body.email, req.body.password, saveUser);
-  function saveUser(email, hash){
+  createSecure(req.body.email, req.body.password, req.body.admin, saveUser);
+  function saveUser(email, hash, admin){
     pg.connect(connectionString, function(err, client, done){
       if(err){
         done()
         console.log(err)
         return res.status(500).json({success: false, data: err})
       }
-      var query = client.query("INSERT INTO users (email, password_digest) VALUES ($1, $2);", [email, hash], function(err, result){
+      var query = client.query("INSERT INTO users (email, password_digest, admin) VALUES ($1, $2, $3);", [email, hash, admin], function(err, result){
         done()
         if(err){
           return console.error('error running query', err)
@@ -67,6 +67,23 @@ function createWeapon(req, res, next){
       return res.status(500).json({success: false, data: err})
     }
     var query = client.query("INSERT INTO weapons (name, userid, engineid, receiverid, barrelid, stockid) VALUES ($1, $2, $3, $4, $5, $6);", [req.body.name, req.session.user.userid, req.body.engine, req.body.receiver, req.body.barrel, req.body.stock], function(err, result){
+      done()
+      if(err){
+        return console.error('error running query', err)
+      }
+      next()
+    })
+  })
+};
+
+function updateWeapon(req, res, next){
+  pg.connect(connectionString, function(err, client, done){
+    if(err){
+      done()
+      console.log(err)
+      return res.status(500).json({success: false, data: err})
+    }
+    var query = client.query("UPDATE weapons SET (name, engineid, receiverid, barrelid, stockid) = ($1, $2, $3, $4, $5)", [req.body.name, req.body.engine, req.body.receiver, req.body.barrel, req.body.stock], function(err, result){
       done()
       if(err){
         return console.error('error running query', err)
@@ -99,6 +116,125 @@ function displayWeaponStats(req, res, next){
   })
 };
 
+function grabWeapon(req, res, next){
+  pg.connect(connectionString,function(err, client, done){
+    if(err){
+      done()
+      console.log(err)
+      return res.status(500).json({success: false, data: err})
+    }
+    var weaponID = req.params.weaponid;
+    var query = client.query("SELECT * FROM weapons WHERE weaponid = '"+weaponID+"';", function(err, result){
+      done()
+      if(err){
+        return console.error('error running query', err)
+      }
+      if (result.rows.length === 0){
+        res.status(204).json({success:true, data: 'no content'})
+      } else {
+        res.weapon = result.rows
+        next()
+      }
+    })
+  })
+};
+
+function grabAllParts(req, res, next){
+  grabEngines(req, res, next);
+  grabReceivers(req, res, next);
+  grabBarrels(req, res, next);
+  grabStocks(req, res, next);
+  next()
+}
+
+function grabEngines(req, res, next){
+  pg.connect(connectionString,function(err, client, done){
+    if(err){
+      done()
+      console.log(err)
+      return res.status(500).json({success: false, data: err})
+    }
+    var query = client.query("SELECT engineid, name FROM engines;", function(err, result){
+      done()
+      if(err){
+        return console.error('error running query', err)
+      }
+      if (result.rows.length === 0){
+        res.status(204).json({success:true, data: 'no content'})
+      } else {
+        res.engines = result.rows
+        // next()
+      }
+    })
+  })
+};
+
+function grabReceivers(req, res, next){
+  pg.connect(connectionString,function(err, client, done){
+    if(err){
+      done()
+      console.log(err)
+      return res.status(500).json({success: false, data: err})
+    }
+    var query = client.query("SELECT receiverid, name FROM receivers;", function(err, result){
+      done()
+      if(err){
+        return console.error('error running query', err)
+      }
+      if (result.rows.length === 0){
+        res.status(204).json({success:true, data: 'no content'})
+      } else {
+        res.receivers = result.rows
+        // next()
+      }
+    })
+  })
+};
+
+function grabBarrels(req, res, next){
+  pg.connect(connectionString,function(err, client, done){
+    if(err){
+      done()
+      console.log(err)
+      return res.status(500).json({success: false, data: err})
+    }
+    var query = client.query("SELECT barrelid, name FROM barrels;", function(err, result){
+      done()
+      if(err){
+        return console.error('error running query', err)
+      }
+      if (result.rows.length === 0){
+        res.status(204).json({success:true, data: 'no content'})
+      } else {
+        res.barrels = result.rows
+        // next()
+      }
+    })
+  })
+};
+
+function grabStocks(req, res, next){
+  pg.connect(connectionString,function(err, client, done){
+    if(err){
+      done()
+      console.log(err)
+      return res.status(500).json({success: false, data: err})
+    }
+    var query = client.query("SELECT stockid, name FROM stocks;", function(err, result){
+      done()
+      if(err){
+        return console.error('error running query', err)
+      }
+      if (result.rows.length === 0){
+        res.status(204).json({success:true, data: 'no content'})
+      } else {
+        res.stocks = result.rows
+        // next()
+      }
+    })
+  })
+};
+
 function getArsenal(req, res, next){
   pg.connect(connectionString,function(err, client, done){
     if(err){
@@ -122,6 +258,35 @@ function getArsenal(req, res, next){
   })
 };
 
+function deleteWeapon(req, res, next){
+  pg.connect(connectionString,function(err, client, done){
+    if(err){
+      done()
+      console.log(err)
+      return res.status(500).json({success: false, data: err})
+    }
+    var weaponID = req.params.weaponid;
+    var query = client.query("DELETE FROM weapons WHERE weaponid = '"+weaponID+"';", function(err, result){
+      done()
+      if(err){
+        return console.error('error running query', err)
+      }
+      if (result.rows.length === 0){
+        res.status(204).json({success:true, data: 'no content'})
+      } else {
+        next()
+      }
+    })
+  })
+};
+
+module.exports.deleteWeapon = deleteWeapon;
+module.exports.grabReceivers = grabReceivers;
+module.exports.grabStocks = grabStocks;
+module.exports.grabBarrels = grabBarrels;
+module.exports.grabEngines = grabEngines;
+module.exports.grabAllParts = grabAllParts;
+module.exports.grabWeapon = grabWeapon;
 module.exports.getArsenal = getArsenal;
 module.exports.displayWeaponStats = displayWeaponStats;
 module.exports.createWeapon = createWeapon;

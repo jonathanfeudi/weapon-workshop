@@ -13,6 +13,7 @@
             <li><a href="/weapons/arsenal">Arsenal</a></li>
             <li><a href="/weapons/new">Create a new weapon</a></li>
             <li><a href="/users/login">Login/Register</a></li>
+            <li><a href="/users/admin">Admin Portal</a></li>
             <% if (session.user){ %>
             <li><a href="#">Logged in as: <%= session.user.email %></a></li>
             <li><form method="post" action="/users/logout?_method=DELETE">

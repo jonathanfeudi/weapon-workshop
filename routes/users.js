@@ -13,8 +13,20 @@ users.post('/', db.createUser, function(req, res){
   res.redirect('/');
 });
 
+users.get('/admin', function(req,res){
+  if(req.session.user){
+    if(req.session.user.admin){
+      res.render('./pages/admin', {session: req.session})
+    } else {
+      res.render('pages/notloggedin', {session: req.session})
+    }
+  } else {
+    res.render('pages/notloggedin', {session: req.session})
+  }
+});
+
 users.get('/login', function(req, res){
-  res.render('./pages/login.html.ejs', {session: req.session});
+  res.render('pages/login.html.ejs', {session: req.session});
 });
 
 users.post('/login', db.loginUser, function(req, res){
