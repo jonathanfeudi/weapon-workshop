@@ -28,27 +28,27 @@ function loginUser(req,res,next) {
   })
 }
 
-function createSecure(email, password, callback) {
+function createSecure(email, password, admin, callback) {
   //hashing the password given by user
   bcrypt.genSalt(function(err, salt){
     bcrypt.hash(password, salt, function(err, hash){
       //callback saves the email and hashed password to DB
-      callback(email, hash)
+      callback(email, hash, admin)
     })
   })
 };
 
 
 function createUser(req, res, next) {
-  createSecure(req.body.email, req.body.password, saveUser);
-  function saveUser(email, hash){
+  createSecure(req.body.email, req.body.password, req.body.admin, saveUser);
+  function saveUser(email, hash, admin){
     pg.connect(connectionString, function(err, client, done){
       if(err){
         done()
         console.log(err)
         return res.status(500).json({success: false, data: err})
       }
-      var query = client.query("INSERT INTO users (email, password_digest) VALUES ($1, $2);", [email, hash], function(err, result){
+      var query = client.query("INSERT INTO users (email, password_digest, admin) VALUES ($1, $2, $3);", [email, hash, admin], function(err, result){
         done()
         if(err){
           return console.error('error running query', err)
@@ -133,28 +133,6 @@ function grabWeapon(req, res, next){
         res.status(204).json({success:true, data: 'no content'})
       } else {
         res.weapon = result.rows
-        next()
-      }
-    })
-  })
-};
-
-function grabAllParts(req, res, next){
-  pg.connect(connectionString,function(err, client, done){
-    if(err){
-      done()
-      console.log(err)
-      return res.status(500).json({success: false, data: err})
-    }
-    var query = client.query("SELECT e.engineid, e.name as enginename, r.receiverid, r.name as receivername, b.barrelid, b.name as barrelname, s.stockid, s.name as stockname FROM engines e INNER JOIN receivers r ON r.receiverid = e.engineid INNER JOIN barrels b ON b.barrelid = e.engineid INNER JOIN stocks s ON s.stockid = e.engineid;", function(err, result){
-      done()
-      if(err){
-        return console.error('error running query', err)
-      }
-      if (result.rows.length === 0){
-        res.status(204).json({success:true, data: 'no content'})
-      } else {
-        res.parts = result.rows
         next()
       }
     })

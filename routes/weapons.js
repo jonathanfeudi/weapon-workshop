@@ -7,10 +7,10 @@ var pgSession = require('connect-pg-simple');
 
 weapons.route('/')
   .get(function(req,res){
-    res.send('GET /weapons route')
+    res.redirect('/home')
   })
   .post(db.createWeapon, function(req,res){
-    res.send('POST /weapons route')
+    res.redirect('/weapons/arsenal')
   })
 
 weapons.get('/new', function(req,res){
@@ -19,6 +19,7 @@ weapons.get('/new', function(req,res){
 
 weapons.get('/arsenal',function(req, res, next){
   if(req.session.user){
+    console.log(req.session.user)
     next()
   }
   else {
