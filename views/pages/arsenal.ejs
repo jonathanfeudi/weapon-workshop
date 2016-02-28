@@ -9,9 +9,8 @@
     </nav>
     <main>
       <div class="container">
-      <ul>
         <% for(var i = 0; i < results.length; i++){ %>
-          <li>
+          <div class="col-md-2">
             <a href="/weapons/<%= results[i].weaponid %>"><%= results[i].weaponid %> <%=results[i].name %></a>
             <form action="/weapons/<%= results[i].weaponid %>/edit" method="GET">
               <button>Edit</button>
@@ -19,9 +18,9 @@
             <form action="/weapons/<%= results[i].weaponid %>?_method=DELETE" method="POST">
               <button>Delete</button>
             </form>
-          </li>
+          </div>
         <% } %>
-      </ul>
+
     </div>
     </main>
   </body>
