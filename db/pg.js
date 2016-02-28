@@ -83,7 +83,8 @@ function updateWeapon(req, res, next){
       console.log(err)
       return res.status(500).json({success: false, data: err})
     }
-    var query = client.query("UPDATE weapons SET (name, engineid, receiverid, barrelid, stockid) = ($1, $2, $3, $4, $5)", [req.body.name, req.body.engine, req.body.receiver, req.body.barrel, req.body.stock], function(err, result){
+    var weaponID = req.body.weaponid;
+    var query = client.query("UPDATE weapons SET (name, engineid, receiverid, barrelid, stockid) = ($1, $2, $3, $4, $5) WHERE weaponid = '"+weaponID+"';", [req.body.name, req.body.engine, req.body.receiver, req.body.barrel, req.body.stock], function(err, result){
       done()
       if(err){
         return console.error('error running query', err)
@@ -280,6 +281,7 @@ function deleteWeapon(req, res, next){
   })
 };
 
+module.exports.updateWeapon = updateWeapon;
 module.exports.deleteWeapon = deleteWeapon;
 module.exports.grabReceivers = grabReceivers;
 module.exports.grabStocks = grabStocks;

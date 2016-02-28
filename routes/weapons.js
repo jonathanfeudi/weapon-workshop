@@ -42,4 +42,8 @@ weapons.get('/:weaponid/edit', db.grabAllParts, db.grabWeapon, function(req,res)
   res.render('pages/weapon_edit_existing', {session: req.session, engines: res.engines, receivers: res.receivers, barrels: res.barrels, stocks: res.stocks, weapon: res.weapon})
 });
 
+weapons.post('/edit', db.updateWeapon, function(req,res){
+  res.redirect('/weapons/arsenal')
+});
+
 module.exports = weapons;

@@ -16,8 +16,9 @@
       <div class="starter-template">
         <h1>EDIT A WEAPON</h1>
         <p class="lead">Use this form to build a weapon.</p>
-        <form class="form-horizontal" action="/weapons" method="POST">
+        <form class="form-horizontal" action="/weapons/edit" method="POST">
         <fieldset>
+          <input type="hidden" name="weaponid" value="<%= weapon[0].weaponid %>">
 
 
         <!-- Text input-->
