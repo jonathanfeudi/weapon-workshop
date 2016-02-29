@@ -2,6 +2,18 @@
 <html lang="en">
   <head>
     <%- include ../partials/head %>
+    <% for(var i = 0; i < stocks.length; i++){ %>
+      <script id="stockArray<%=i%>"><%- JSON.stringify(stocks[i]) %></script>
+      <% } %>
+    <% for(var i = 0; i < barrels.length; i++){ %>
+      <script id="barrelArray<%=i%>"><%- JSON.stringify(barrels[i]) %></script>
+      <% } %>
+    <% for(var i = 0; i < receivers.length; i++){ %>
+      <script id="receiverArray<%=i%>"><%- JSON.stringify(receivers[i]) %></script>
+      <% } %>
+    <% for(var i = 0; i < engines.length; i++){ %>
+      <script id="engineArray<%=i%>"><%- JSON.stringify(engines[i]) %></script>
+      <% } %>
   </head>
 
   <body>
@@ -14,9 +26,9 @@
     <div class="container">
 
       <div class="starter-template">
-        <div class="glitch" data-text="EDIT A WEAPON">CREATE A WEAPON</div>
+        <div class="glitch" data-text="CREATE A WEAPON">CREATE A WEAPON</div>
         <p class="lead glitchbody" data-text="Use this form to edit your weapon">Use this form to create a schematic.</p>
-        <form class="form-horizontal" action="/weapons/edit" method="POST">
+        <form class="form-horizontal" action="/weapons" method="POST">
         <fieldset>
 
 
@@ -30,54 +42,66 @@
 
         <!-- Select Basic -->
         <div class="form-group">
-          <label class="glitchbody" data-text="Engine" for="engine">Engine</label>
+          <label class="glitchbody" data-text="Engine:" for="engine">Engine:</label>
           <div class="col-md-6">
-            <select id="engine" name="engine" class="form-control">
               <% for(var i = 0; i < engines.length; i++){ %>
-                <option value=<%= engines[i].engineid %>>
+                <div class="col-md-3">
+                <label class="glitchbody engine" data-text="<%= engines[i].name %>" for="<%= engines[i].name %>">
+                <input type="radio" class="check" id="<%= engines[i].name %>" name="engine" value=<%= engines[i].engineid %>>
                   <%= engines[i].name %> </option>
+                </label>
+              </div>
                 <% } %>
-            </select>
           </div>
+          <div id="engineText" class="col-md-5 glitchbody"></div>
         </div>
 
         <!-- Select Basic -->
         <div class="form-group">
-          <label class="glitchbody" data-text="Receiver" for="receiver">Receiver</label>
+          <label class="glitchbody" data-text="Receiver" for="receiver">Receiver:</label>
           <div class="col-md-6">
-            <select id="receiver" name="receiver" class="form-control">
-              <% for(var i = 0; i < receivers.length; i++){ %>
-                <option value=<%= receivers[i].receiverid %>>
-                  <%= receivers[i].name %> </option>
-                <% } %>
-            </select>
+            <% for(var i = 0; i < receivers.length; i++){ %>
+              <div class="col-md-3">
+              <label class="glitchbody receiver" data-text="<%= receivers[i].name %>" for="<%= receivers[i].name %>">
+              <input type="radio" class="check" id="<%= receivers[i].name %>" name="receiver" value=<%= receivers[i].receiverid %>>
+                <%= receivers[i].name %> </option>
+              </label>
+            </div>
+              <% } %>
           </div>
+          <div id="receiverText" class="col-md-4 glitchbody"></div>
         </div>
 
         <!-- Select Basic -->
         <div class="form-group">
-          <label class="glitchbody" data-text="Barrel" for="barrel">Barrel</label>
+          <label class="glitchbody" data-text="Barrel" for="barrel">Barrel:</label>
           <div class="col-md-6">
-            <select id="barrel" name="barrel" class="form-control">
-              <% for(var i = 0; i < barrels.length; i++){ %>
-                <option value=<%= barrels[i].barrelid %>>
-                  <%= barrels[i].name %> </option>
-                <% } %>
-            </select>
+            <% for(var i = 0; i < barrels.length; i++){ %>
+              <div class="col-md-3">
+              <label class="glitchbody barrel" data-text="<%= barrels[i].name %>" for="<%= barrels[i].name %>">
+              <input type="radio" class="check" id="<%= barrels[i].name %>" name="barrel" value=<%= barrels[i].barrelid %>>
+                <%= barrels[i].name %> </option>
+              </label>
+            </div>
+              <% } %>
           </div>
+          <div id="barrelText" class="col-md-4 glitchbody"></div>
         </div>
 
         <!-- Select Basic -->
         <div class="form-group">
-          <label class="glitchbody" data-text="Stock" for="stock">Stock</label>
+          <label class="glitchbody" data-text="Stock" for="stock">Stock:</label>
           <div class="col-md-6">
-            <select id="stock" name="stock" class="form-control">
-              <% for(var i = 0; i < stocks.length; i++){ %>
-                <option value=<%= stocks[i].stockid %>>
-                  <%= stocks[i].name %> </option>
-                <% } %>
-            </select>
+            <% for(var i = 0; i < stocks.length; i++){ %>
+              <div class="col-md-3">
+              <label class="glitchbody stock" data-text="<%= stocks[i].name %>" for="<%= stocks[i].name %>">
+              <input type="radio" class="check" id="<%= stocks[i].name %>" name="stock" value=<%= stocks[i].stockid %>>
+                <%= stocks[i].name %> </option>
+              </label>
+            </div>
+              <% } %>
           </div>
+          <div id="stockText" class="col-md-4 glitchbody"></div>
         </div>
 
         <!-- Button -->
@@ -94,5 +118,6 @@
 
     </div><!-- /.container -->
     </main>
+    <script type="text/javascript" src="/scripts/script.js"></script>
   </body>
 </html>

@@ -19,17 +19,21 @@ a {
   color: #44FF3B;
 }
 
+.check {
+  display: none;
+}
+
 .glitch {
   color: #44FF3B;
   font-size: 24px;
   position: relative;
   margin: 0 auto; }
 
-  .glitchbody {
-    color: #44FF3B;
-    font-size: 16px;
-    position: relative;
-    margin: 0 auto; }
+.glitchbody {
+  color: #44FF3B;
+  font-size: 16px;
+  position: relative;
+  margin: 0 auto; }
 
 @keyframes noise-anim {
   0% {
@@ -164,5 +168,9 @@ a {
   overflow: hidden;
   clip: rect(0, 900px, 0, 0);
   animation: noise-anim-2 3s infinite linear alternate-reverse; }
+
+.selected {
+  border: 1px solid green;
+}
 
 /*# sourceMappingURL=styles.css.map */
