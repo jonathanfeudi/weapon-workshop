@@ -2,73 +2,73 @@
 <html lang="en">
   <head>
     <%- include ../partials/head %>
+
   </head>
 
   <body>
+
       <nav class="navbar navbar-inverse navbar-fixed-top">
       <%- include ../partials/nav %>
     </nav>
     <main>
-
-
     <div class="container">
 
       <div class="starter-template">
         <div class="form-group col-md-3">
           <form class="form-horizontal" action="/weapons/newengine" method="POST">
-          <div><h3>Create New Engine</h3></div>
+          <div class="glitch" data-text="Create New Engine">Create New Engine</div>
           <input id="enginename" name="name" type="text" class="form-control-in-md">
-          <span class="help-block">Name</span>
+          <span class="help-block glitchbody" data-text="Name">Name</span>
           <input id="enginedmgtyp" name="dmgtype" type="text" class="form-control-in-md">
-          <span class="help-block">Damage Type (text)</span>
+          <span class="help-block glitchbody" data-text="Damage Type (text)">Damage Type (text)</span>
           <input id="enginedebuff" name="debuff" type="text" class="form-control-in-md">
-          <span class="help-block">Debuff (text)</span>
+          <span class="help-block glitchbody" data-text="Debuff (text)">Debuff (text)</span>
           <input type="submit">
         </form>
         </div>
 
         <div class="form-group col-md-3">
           <form class="form-horizontal" action="/weapons/newreceiver" method="POST">
-          <div><h3>Create New Receiver</h3></div>
+          <div class="glitch" data-text="Create New Receiver">Create New Receiver</div>
           <input id="receivername" name="name" type="text" class="form-control-in-md">
-          <span class="help-block">Name</span>
+          <span class="help-block glitchbody" data-text="Name">Name</span>
           <input id="receiverdmg" name="dmg" type="text" class="form-control-in-md">
-          <span class="help-block">Damage (integer)</span>
+          <span class="help-block glitchbody" data-text="Damage (integer)">Damage (integer)</span>
           <input id="receiverrof" name="rof" type="text" class="form-control-in-md">
-          <span class="help-block">Rate of Fire (integer)</span>
+          <span class="help-block glitchbody" data-text="Rate of Fire (integer)">Rate of Fire (integer)</span>
           <input type="submit">
         </form>
         </div>
 
         <div class="form-group col-md-3">
           <form class="form-horizontal" action="/weapons/newbarrel" method="POST">
-          <div><h3>Create New Barrel</h3></div>
+          <div class="glitch" data-text="Create New Barrel">Create New Barrel</div>
           <input id="barrelname" name="name" type="text" class="form-control-in-md">
-          <span class="help-block">Name</span>
+          <span class="help-block glitchbody" data-text="Name">Name</span>
           <input id="barrelrange" name="range" type="text" class="form-control-in-md">
-          <span class="help-block">Range (integer)</span>
+          <span class="help-block glitchbody" data-text="Range (integer)">Range (integer)</span>
           <input id="barrelheat" name="heat" type="text" class="form-control-in-md">
-          <span class="help-block">Heat (integer)</span>
+          <span class="help-block glitchbody" data-text="Heat (integer)">Heat (integer)</span>
           <input type="submit">
         </form>
         </div>
 
         <div class="form-group col-md-3">
           <form class="form-horizontal" action="/weapons/newstock" method="POST">
-          <div><h3>Create New Stock</h3></div>
+          <div class="glitch" data-text="Create New Stock">Create New Stock</div>
           <input id="stockname" name="name" type="text" class="form-control-in-md">
-          <span class="help-block">Name</span>
+          <span class="help-block glitchbody" data-text="Name">Name</span>
           <input id="stockaccuracy" name="accuracy" type="text" class="form-control-in-md">
-          <span class="help-block">Accuracy (integer)</span>
+          <span class="help-block glitchbody" data-text="Accuracy (integer)">Accuracy (integer)</span>
           <input id="stockdrawtime" name="drawtime" type="text" class="form-control-in-md">
-          <span class="help-block">Drawtime (integer)</span>
+          <span class="help-block glitchbody" data-text="Drawtime (integer)">Drawtime (integer)</span>
           <input type="submit">
         </form>
         </div>
       </div>
 
-    </div><!-- /.container -->
-
+    </div>
+    <!-- /.container -->
     </main>
   </body>
 </html>
