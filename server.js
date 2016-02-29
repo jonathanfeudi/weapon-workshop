@@ -1,6 +1,10 @@
 pry = require('pryjs');
 'use strict'
-var connectionString = "postgres://Feudimonster:"+process.env.DB_PASSWORD+"@localhost/weapon_workshop";
+if (process.env.ENVIRONMENT === 'production'){
+  var connectionString = process.env.DATABASE_URL;
+} else {
+  var connectionString = "postgres://Feudimonster:"+process.env.DB_PASSWORD+"@localhost/weapon_workshop";
+};
 var pg = require('pg');
 var path       = require('path');
 var express    = require('express');
