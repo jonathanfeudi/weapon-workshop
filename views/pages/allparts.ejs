@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <%- include ../partials/head %>
+  </head>
+  <body>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <%- include ../partials/nav %>
+    </nav>
+    <main>
+      <div class="container">
+        <ul>
+        <% for(var i = 0; i < engines.length; i++){ %>
+            <li class="glitchbody" data-text="Engine: <%=engines[i].name%>">Engine: <%=engines[i].name %></li>
+            <form action="/weapons/deleteengine/<%= engines[i].engineid %>?_method=DELETE" method="POST">
+              <button>Delete</button>
+            </form>
+        <% } %>
+      </ul>
+      <ul>
+        <% for(var i = 0; i < receivers.length; i++){ %>
+            <li class="glitchbody" data-text="Receiver: <%=receivers[i].name%>">Receiver: <%=receivers[i].name %></li>
+            <form action="/weapons/deletereceiver/<%= receivers[i].receiverid %>?_method=DELETE" method="POST">
+              <button>Delete</button>
+            </form>
+        <% } %>
+      </ul>
+      <ul>
+        <% for(var i = 0; i < barrels.length; i++){ %>
+            <li class="glitchbody" data-text="Barrel: <%=barrels[i].name%>">Barrel: <%=barrels[i].name %></li>
+            <form action="/weapons/deletebarrel/<%= barrels[i].barrelid %>?_method=DELETE" method="POST">
+              <button>Delete</button>
+            </form>
+        <% } %>
+      </ul>
+      <ul>
+        <% for(var i = 0; i < stocks.length; i++){ %>
+            <li class="glitchbody" data-text="Stock: <%=stocks[i].name%>">Stock: <%=stocks[i].name %></li>
+            <form action="/weapons/deletestock/<%= stocks[i].stockid %>?_method=DELETE" method="POST">
+              <button>Delete</button>
+            </form>
+        <% } %>
+      </ul>
+    </div>
+    </main>
+  </body>
+</html>

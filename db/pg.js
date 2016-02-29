@@ -221,6 +221,24 @@ function createEngine(req, res, next){
   })
 };
 
+function deleteEngine(req, res, next){
+  pg.connect(connectionString, function(err, client, done){
+    if(err){
+      done()
+      console.log(err)
+      return res.status(500).json({success: false, data: err})
+    }
+    var engineID = req.params.engineid;
+    var query = client.query("DELETE FROM engines WHERE engineid = '" + engineID+"';", function(err, result){
+      done()
+      if(err){
+        return console.error('error running query', err)
+      }
+      next()
+    })
+  })
+};
+
 function createReceiver(req, res, next){
   pg.connect(connectionString, function(err, client, done){
     if(err){
@@ -229,6 +247,24 @@ function createReceiver(req, res, next){
       return res.status(500).json({success: false, data: err})
     }
     var query = client.query("INSERT INTO receivers (name, dmg, rof) VALUES ($1, $2, $3);", [req.body.name, req.body.dmg, req.body.rof], function(err, result){
+      done()
+      if(err){
+        return console.error('error running query', err)
+      }
+      next()
+    })
+  })
+};
+
+function deleteReceiver(req, res, next){
+  pg.connect(connectionString, function(err, client, done){
+    if(err){
+      done()
+      console.log(err)
+      return res.status(500).json({success: false, data: err})
+    }
+    var receiverID = req.params.receiverid;
+    var query = client.query("DELETE FROM receivers WHERE receiverid = '" + receiverID+"';", function(err, result){
       done()
       if(err){
         return console.error('error running query', err)
@@ -255,6 +291,24 @@ function createBarrel(req, res, next){
   })
 };
 
+function deleteBarrel(req, res, next){
+  pg.connect(connectionString, function(err, client, done){
+    if(err){
+      done()
+      console.log(err)
+      return res.status(500).json({success: false, data: err})
+    }
+    var barrelID = req.params.barrelid;
+    var query = client.query("DELETE FROM barrels WHERE barrelid = '" + barrelID+"';", function(err, result){
+      done()
+      if(err){
+        return console.error('error running query', err)
+      }
+      next()
+    })
+  })
+};
+
 function createStock(req, res, next){
   pg.connect(connectionString, function(err, client, done){
     if(err){
@@ -263,6 +317,24 @@ function createStock(req, res, next){
       return res.status(500).json({success: false, data: err})
     }
     var query = client.query("INSERT INTO stocks (name, accuracy, drawtime) VALUES ($1, $2, $3);", [req.body.name, req.body.accuracy, req.body.drawtime], function(err, result){
+      done()
+      if(err){
+        return console.error('error running query', err)
+      }
+      next()
+    })
+  })
+};
+
+function deleteStock(req, res, next){
+  pg.connect(connectionString, function(err, client, done){
+    if(err){
+      done()
+      console.log(err)
+      return res.status(500).json({success: false, data: err})
+    }
+    var stockID = req.params.stockid;
+    var query = client.query("DELETE FROM stocks WHERE stockid = '" + stockID+"';", function(err, result){
       done()
       if(err){
         return console.error('error running query', err)
@@ -290,6 +362,10 @@ function deleteWeapon(req, res, next){
   })
 };
 
+module.exports.deleteEngine = deleteEngine;
+module.exports.deleteReceiver = deleteReceiver;
+module.exports.deleteBarrel = deleteBarrel;
+module.exports.deleteStock = deleteStock;
 module.exports.createEngine = createEngine;
 module.exports.createReceiver = createReceiver;
 module.exports.createBarrel = createBarrel;
