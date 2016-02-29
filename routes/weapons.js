@@ -13,7 +13,14 @@ weapons.route('/')
     res.redirect('/weapons/arsenal')
   })
 
-weapons.get('/new', db.grabAllParts, function(req,res){
+weapons.get('/new', function(req, res, next){
+  if(req.session.user){
+    next()
+  }
+  else {
+    res.render('pages/notloggedin', {session: req.session})
+  }
+}, db.grabAllParts, function(req,res){
   res.render('pages/weapon_edit', {session: req.session, engines: res.engines, receivers: res.receivers, barrels: res.barrels, stocks: res.stocks})
 });
 
