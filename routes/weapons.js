@@ -47,7 +47,6 @@ weapons.post('/newstock', db.createStock, function(req, res){
 
 weapons.get('/arsenal', function(req, res, next){
   if(req.session.user){
-    console.log(req.session.user)
     next()
   }
   else {
@@ -59,11 +58,10 @@ weapons.get('/arsenal', function(req, res, next){
 
 weapons.route('/:weaponid')
   .get(db.displayWeaponStats, function(req,res){
-    console.log(res.rows)
     res.send(res.rows)
   })
   .delete(db.deleteWeapon, function(req,res){
-    res.redirect('/weapons/arsenal')
+    res.redirect('/')
   })
 
 weapons.get('/:weaponid/edit', db.grabAllParts, db.grabWeapon, function(req,res){

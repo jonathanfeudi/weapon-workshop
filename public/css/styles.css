@@ -1,16 +1,11 @@
 @import url(https://fonts.googleapis.com/css?family=Share+Tech+Mono);
 
-@import "compass/css3";
-
 body {
   padding-top: 50px;
   background: black;
   font-family: 'Share Tech Mono', sans-serif;
  }
 
-/*.starter-template {
-  padding: 40px 15px;
-  text-align: center; }*/
 label {
   float:left;
 }
@@ -172,5 +167,3 @@ a {
 .selected {
   border: 1px solid green;
 }
-
-/*# sourceMappingURL=styles.css.map */

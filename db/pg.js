@@ -285,11 +285,7 @@ function deleteWeapon(req, res, next){
       if(err){
         return console.error('error running query', err)
       }
-      if (result.rows.length === 0){
-        res.status(204).json({success:true, data: 'no content'})
-      } else {
-        next()
-      }
+      next()
     })
   })
 };
