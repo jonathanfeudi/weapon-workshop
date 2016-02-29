@@ -141,98 +141,39 @@ function grabWeapon(req, res, next){
 };
 
 function grabAllParts(req, res, next){
-  grabEngines(req, res, next);
-  grabReceivers(req, res, next);
-  grabBarrels(req, res, next);
-  grabStocks(req, res, next);
-  next()
-}
-
-function grabEngines(req, res, next){
-  pg.connect(connectionString,function(err, client, done){
+  var client = new pg.Client(connectionString)
+  client.connect(function(err){
     if(err){
-      done()
-      console.log(err)
-      return res.status(500).json({success: false, data: err})
+      return console.error('could not connect to postgres', err);
     }
-    var query = client.query("SELECT engineid, name FROM engines;", function(err, result){
-      done()
-      if(err){
-        return console.error('error running query', err)
-      }
-      if (result.rows.length === 0){
-        res.status(204).json({success:true, data: 'no content'})
-      } else {
-        res.engines = result.rows
-        // next()
-      }
-    })
+  });
+  var engines = client.query("SELECT engineid, name FROM engines;");
+  var receivers = client.query("SELECT receiverid, name FROM receivers;")
+  var barrels = client.query("SELECT barrelid, name FROM barrels;")
+  var stocks = client.query("SELECT stockid, name FROM stocks;")
+  var engineArray = [];
+  var receiverArray = [];
+  var barrelArray = [];
+  var stockArray = [];
+  client.on('end', function() {
+    next();
   })
-};
-
-function grabReceivers(req, res, next){
-  pg.connect(connectionString,function(err, client, done){
-    if(err){
-      done()
-      console.log(err)
-      return res.status(500).json({success: false, data: err})
-    }
-    var query = client.query("SELECT receiverid, name FROM receivers;", function(err, result){
-      done()
-      if(err){
-        return console.error('error running query', err)
-      }
-      if (result.rows.length === 0){
-        res.status(204).json({success:true, data: 'no content'})
-      } else {
-        res.receivers = result.rows
-        // next()
-      }
-    })
+  client.on('drain', client.end.bind(client));
+  engines.on('row', function(row){
+    engineArray.push(row);
+    res.engines = engineArray;
   })
-};
-
-function grabBarrels(req, res, next){
-  pg.connect(connectionString,function(err, client, done){
-    if(err){
-      done()
-      console.log(err)
-      return res.status(500).json({success: false, data: err})
-    }
-    var query = client.query("SELECT barrelid, name FROM barrels;", function(err, result){
-      done()
-      if(err){
-        return console.error('error running query', err)
-      }
-      if (result.rows.length === 0){
-        res.status(204).json({success:true, data: 'no content'})
-      } else {
-        res.barrels = result.rows
-        // next()
-      }
-    })
+  receivers.on('row', function(row){
+    receiverArray.push(row);
+    res.receivers = receiverArray;
   })
-};
-
-function grabStocks(req, res, next){
-  pg.connect(connectionString,function(err, client, done){
-    if(err){
-      done()
-      console.log(err)
-      return res.status(500).json({success: false, data: err})
-    }
-    var query = client.query("SELECT stockid, name FROM stocks;", function(err, result){
-      done()
-      if(err){
-        return console.error('error running query', err)
-      }
-      if (result.rows.length === 0){
-        res.status(204).json({success:true, data: 'no content'})
-      } else {
-        res.stocks = result.rows
-        // next()
-      }
-    })
+  barrels.on('row', function(row){
+    barrelArray.push(row);
+    res.barrels = barrelArray;
+  })
+  stocks.on('row', function(row){
+    stockArray.push(row);
+    res.stocks = stockArray;
   })
 };
 
@@ -355,10 +296,6 @@ module.exports.createBarrel = createBarrel;
 module.exports.createStock = createStock;
 module.exports.updateWeapon = updateWeapon;
 module.exports.deleteWeapon = deleteWeapon;
-module.exports.grabReceivers = grabReceivers;
-module.exports.grabStocks = grabStocks;
-module.exports.grabBarrels = grabBarrels;
-module.exports.grabEngines = grabEngines;
 module.exports.grabAllParts = grabAllParts;
 module.exports.grabWeapon = grabWeapon;
 module.exports.getArsenal = getArsenal;
