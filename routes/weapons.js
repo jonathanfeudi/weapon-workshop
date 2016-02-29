@@ -13,11 +13,39 @@ weapons.route('/')
     res.redirect('/weapons/arsenal')
   })
 
-weapons.get('/new', function(req,res){
-  res.render('pages/weapon_edit', {session: req.session})
+weapons.get('/new', db.grabAllParts, function(req,res){
+  res.render('pages/weapon_edit', {session: req.session, engines: res.engines, receivers: res.receivers, barrels: res.barrels, stocks: res.stocks})
 });
 
-weapons.get('/arsenal',function(req, res, next){
+weapons.get('/newpart', function(req, res){
+  if(req.session.user){
+    if(req.session.user.admin){
+      res.render('pages/newpart', {session: req.session})
+    } else {
+      res.render('pages/notloggedin', {session: req.session})
+    }
+  } else {
+    res.render('pages/notloggedin', {session: req.session})
+  }
+});
+
+weapons.post('/newengine', db.createEngine, function(req, res){
+  res.redirect('/users/admin')
+});
+
+weapons.post('/newreceiver', db.createReceiver, function(req, res){
+  res.redirect('/users/admin')
+});
+
+weapons.post('/newbarrel', db.createBarrel, function(req, res){
+  res.redirect('/users/admin')
+});
+
+weapons.post('/newstock', db.createStock, function(req, res){
+  res.redirect('/users/admin')
+});
+
+weapons.get('/arsenal', function(req, res, next){
   if(req.session.user){
     console.log(req.session.user)
     next()
@@ -40,6 +68,10 @@ weapons.route('/:weaponid')
 
 weapons.get('/:weaponid/edit', db.grabAllParts, db.grabWeapon, function(req,res){
   res.render('pages/weapon_edit_existing', {session: req.session, engines: res.engines, receivers: res.receivers, barrels: res.barrels, stocks: res.stocks, weapon: res.weapon})
+});
+
+weapons.post('/edit', db.updateWeapon, function(req,res){
+  res.redirect('/weapons/arsenal')
 });
 
 module.exports = weapons;

@@ -18,7 +18,7 @@ users.get('/admin', function(req,res){
     if(req.session.user.admin){
       res.render('./pages/admin', {session: req.session})
     } else {
-      res.render('pages/notloggedin', {session: req.session})
+      res.render('pages/notadmin', {session: req.session})
     }
   } else {
     res.render('pages/notloggedin', {session: req.session})

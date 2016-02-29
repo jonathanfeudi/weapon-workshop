@@ -83,7 +83,8 @@ function updateWeapon(req, res, next){
       console.log(err)
       return res.status(500).json({success: false, data: err})
     }
-    var query = client.query("UPDATE weapons SET (name, engineid, receiverid, barrelid, stockid) = ($1, $2, $3, $4, $5)", [req.body.name, req.body.engine, req.body.receiver, req.body.barrel, req.body.stock], function(err, result){
+    var weaponID = req.body.weaponid;
+    var query = client.query("UPDATE weapons SET (name, engineid, receiverid, barrelid, stockid) = ($1, $2, $3, $4, $5) WHERE weaponid = '"+weaponID+"';", [req.body.name, req.body.engine, req.body.receiver, req.body.barrel, req.body.stock], function(err, result){
       done()
       if(err){
         return console.error('error running query', err)
@@ -140,98 +141,39 @@ function grabWeapon(req, res, next){
 };
 
 function grabAllParts(req, res, next){
-  grabEngines(req, res, next);
-  grabReceivers(req, res, next);
-  grabBarrels(req, res, next);
-  grabStocks(req, res, next);
-  next()
-}
-
-function grabEngines(req, res, next){
-  pg.connect(connectionString,function(err, client, done){
+  var client = new pg.Client(connectionString)
+  client.connect(function(err){
     if(err){
-      done()
-      console.log(err)
-      return res.status(500).json({success: false, data: err})
+      return console.error('could not connect to postgres', err);
     }
-    var query = client.query("SELECT engineid, name FROM engines;", function(err, result){
-      done()
-      if(err){
-        return console.error('error running query', err)
-      }
-      if (result.rows.length === 0){
-        res.status(204).json({success:true, data: 'no content'})
-      } else {
-        res.engines = result.rows
-        // next()
-      }
-    })
+  });
+  var engines = client.query("SELECT * FROM engines;");
+  var receivers = client.query("SELECT * FROM receivers;")
+  var barrels = client.query("SELECT * FROM barrels;")
+  var stocks = client.query("SELECT * FROM stocks;")
+  var engineArray = [];
+  var receiverArray = [];
+  var barrelArray = [];
+  var stockArray = [];
+  client.on('end', function() {
+    next();
   })
-};
-
-function grabReceivers(req, res, next){
-  pg.connect(connectionString,function(err, client, done){
-    if(err){
-      done()
-      console.log(err)
-      return res.status(500).json({success: false, data: err})
-    }
-    var query = client.query("SELECT receiverid, name FROM receivers;", function(err, result){
-      done()
-      if(err){
-        return console.error('error running query', err)
-      }
-      if (result.rows.length === 0){
-        res.status(204).json({success:true, data: 'no content'})
-      } else {
-        res.receivers = result.rows
-        // next()
-      }
-    })
+  client.on('drain', client.end.bind(client));
+  engines.on('row', function(row){
+    engineArray.push(row);
+    res.engines = engineArray;
   })
-};
-
-function grabBarrels(req, res, next){
-  pg.connect(connectionString,function(err, client, done){
-    if(err){
-      done()
-      console.log(err)
-      return res.status(500).json({success: false, data: err})
-    }
-    var query = client.query("SELECT barrelid, name FROM barrels;", function(err, result){
-      done()
-      if(err){
-        return console.error('error running query', err)
-      }
-      if (result.rows.length === 0){
-        res.status(204).json({success:true, data: 'no content'})
-      } else {
-        res.barrels = result.rows
-        // next()
-      }
-    })
+  receivers.on('row', function(row){
+    receiverArray.push(row);
+    res.receivers = receiverArray;
   })
-};
-
-function grabStocks(req, res, next){
-  pg.connect(connectionString,function(err, client, done){
-    if(err){
-      done()
-      console.log(err)
-      return res.status(500).json({success: false, data: err})
-    }
-    var query = client.query("SELECT stockid, name FROM stocks;", function(err, result){
-      done()
-      if(err){
-        return console.error('error running query', err)
-      }
-      if (result.rows.length === 0){
-        res.status(204).json({success:true, data: 'no content'})
-      } else {
-        res.stocks = result.rows
-        // next()
-      }
-    })
+  barrels.on('row', function(row){
+    barrelArray.push(row);
+    res.barrels = barrelArray;
+  })
+  stocks.on('row', function(row){
+    stockArray.push(row);
+    res.stocks = stockArray;
   })
 };
 
@@ -258,6 +200,74 @@ function getArsenal(req, res, next){
   })
 };
 
+function createEngine(req, res, next){
+  pg.connect(connectionString, function(err, client, done){
+    if(err){
+      done()
+      console.log(err)
+      return res.status(500).json({success: false, data: err})
+    }
+    var query = client.query("INSERT INTO engines (name, dmgtype, debuff) VALUES ($1, $2, $3);", [req.body.name, req.body.dmgtype, req.body.debuff], function(err, result){
+      done()
+      if(err){
+        return console.error('error running query', err)
+      }
+      next()
+    })
+  })
+};
+
+function createReceiver(req, res, next){
+  pg.connect(connectionString, function(err, client, done){
+    if(err){
+      done()
+      console.log(err)
+      return res.status(500).json({success: false, data: err})
+    }
+    var query = client.query("INSERT INTO receivers (name, dmg, rof) VALUES ($1, $2, $3);", [req.body.name, req.body.dmg, req.body.rof], function(err, result){
+      done()
+      if(err){
+        return console.error('error running query', err)
+      }
+      next()
+    })
+  })
+};
+
+function createBarrel(req, res, next){
+  pg.connect(connectionString, function(err, client, done){
+    if(err){
+      done()
+      console.log(err)
+      return res.status(500).json({success: false, data: err})
+    }
+    var query = client.query("INSERT INTO barrels (name, range, heat) VALUES ($1, $2, $3);", [req.body.name, req.body.range, req.body.heat], function(err, result){
+      done()
+      if(err){
+        return console.error('error running query', err)
+      }
+      next()
+    })
+  })
+};
+
+function createStock(req, res, next){
+  pg.connect(connectionString, function(err, client, done){
+    if(err){
+      done()
+      console.log(err)
+      return res.status(500).json({success: false, data: err})
+    }
+    var query = client.query("INSERT INTO stocks (name, accuracy, drawtime) VALUES ($1, $2, $3);", [req.body.name, req.body.accuracy, req.body.drawtime], function(err, result){
+      done()
+      if(err){
+        return console.error('error running query', err)
+      }
+      next()
+    })
+  })
+};
+
 function deleteWeapon(req, res, next){
   pg.connect(connectionString,function(err, client, done){
     if(err){
@@ -280,11 +290,12 @@ function deleteWeapon(req, res, next){
   })
 };
 
+module.exports.createEngine = createEngine;
+module.exports.createReceiver = createReceiver;
+module.exports.createBarrel = createBarrel;
+module.exports.createStock = createStock;
+module.exports.updateWeapon = updateWeapon;
 module.exports.deleteWeapon = deleteWeapon;
-module.exports.grabReceivers = grabReceivers;
-module.exports.grabStocks = grabStocks;
-module.exports.grabBarrels = grabBarrels;
-module.exports.grabEngines = grabEngines;
 module.exports.grabAllParts = grabAllParts;
 module.exports.grabWeapon = grabWeapon;
 module.exports.getArsenal = getArsenal;
