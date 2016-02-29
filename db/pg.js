@@ -1,5 +1,9 @@
 var pg = require('pg');
-var connectionString = "postgres://Feudimonster:"+process.env.DB_PASSWORD+"@localhost/weapon_workshop";
+if (process.env.ENVIRONMENT === 'production'){
+  var connectionString = process.env.DATABASE_URL;
+} else {
+  var connectionString = "postgres://Feudimonster:"+process.env.DB_PASSWORD+"@localhost/weapon_workshop";
+};
 var bcrypt = require('bcrypt');
 var salt = bcrypt.genSaltSync(10);
 var session = require('express-session');
