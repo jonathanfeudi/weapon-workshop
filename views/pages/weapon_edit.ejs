@@ -2,6 +2,18 @@
 <html lang="en">
   <head>
     <%- include ../partials/head %>
+    <% for(var i = 0; i < stocks.length; i++){ %>
+      <script id="stockArray<%=i%>"><%- JSON.stringify(stocks[i]) %></script>
+      <% } %>
+    <% for(var i = 0; i < barrels.length; i++){ %>
+      <script id="barrelArray<%=i%>"><%- JSON.stringify(barrels[i]) %></script>
+      <% } %>
+    <% for(var i = 0; i < receivers.length; i++){ %>
+      <script id="receiverArray<%=i%>"><%- JSON.stringify(receivers[i]) %></script>
+      <% } %>
+    <% for(var i = 0; i < engines.length; i++){ %>
+      <script id="engineArray<%=i%>"><%- JSON.stringify(engines[i]) %></script>
+      <% } %>
   </head>
 
   <body>
@@ -14,7 +26,7 @@
     <div class="container">
 
       <div class="starter-template">
-        <div class="glitch" data-text="EDIT A WEAPON">CREATE A WEAPON</div>
+        <div class="glitch" data-text="CREATE A WEAPON">CREATE A WEAPON</div>
         <p class="lead glitchbody" data-text="Use this form to edit your weapon">Use this form to create a schematic.</p>
         <form class="form-horizontal" action="/weapons" method="POST">
         <fieldset>
@@ -41,6 +53,7 @@
               </div>
                 <% } %>
           </div>
+          <div id="engineText" class="col-md-4"></div>
         </div>
 
         <!-- Select Basic -->
@@ -56,6 +69,7 @@
             </div>
               <% } %>
           </div>
+          <div id="receiverText" class="col-md-4"></div>
         </div>
 
         <!-- Select Basic -->
@@ -71,6 +85,7 @@
             </div>
               <% } %>
           </div>
+          <div id="barrelText" class="col-md-4"></div>
         </div>
 
         <!-- Select Basic -->
@@ -86,6 +101,7 @@
             </div>
               <% } %>
           </div>
+          <div id="stockText" class="col-md-4"></div>
         </div>
 
         <!-- Button -->
