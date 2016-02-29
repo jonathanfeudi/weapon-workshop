@@ -23,6 +23,7 @@ function renderEngineText(){
   for(var i = 0; i < engines.length; i++){
     if(engines[i].classList.contains('selected')){
       document.getElementById('engineText').innerHTML = 'Damage type: ' + (JSON.parse(eval('engineArray' + i).innerHTML).dmgtype) + ' / Debuff: ' + (JSON.parse(eval('engineArray' + i).innerHTML).debuff);
+      document.getElementById('engineText').setAttribute('data-text', 'Damage type: ' + (JSON.parse(eval('engineArray' + i).innerHTML).dmgtype) + ' / Debuff: ' + (JSON.parse(eval('engineArray' + i).innerHTML).debuff));
     }
   }
 };
@@ -31,6 +32,7 @@ function renderReceiverText(){
   for(var i = 0; i < receivers.length; i++){
     if(receivers[i].classList.contains('selected')){
       document.getElementById('receiverText').innerHTML = 'Damage: ' + (JSON.parse(eval('receiverArray' + i).innerHTML).dmg) + ' / Rate of Fire: ' + (JSON.parse(eval('receiverArray' + i).innerHTML).rof);
+      document.getElementById('receiverText').setAttribute('data-text', 'Damage: ' + (JSON.parse(eval('receiverArray' + i).innerHTML).dmg) + ' / Rate of Fire: ' + (JSON.parse(eval('receiverArray' + i).innerHTML).rof));
     }
   }
 };
@@ -39,6 +41,7 @@ function renderBarrelText(){
   for(var i = 0; i < barrels.length; i++){
     if(barrels[i].classList.contains('selected')){
       document.getElementById('barrelText').innerHTML = 'Range: ' + (JSON.parse(eval('barrelArray' + i).innerHTML).range) + ' / Heat: ' + (JSON.parse(eval('barrelArray' + i).innerHTML).heat);
+      document.getElementById('barrelText').setAttribute('data-text', 'Range: ' + (JSON.parse(eval('barrelArray' + i).innerHTML).range) + ' / Heat: ' + (JSON.parse(eval('barrelArray' + i).innerHTML).heat));
     }
   }
 };
@@ -47,6 +50,7 @@ function renderStockText(){
   for(var i = 0; i < stocks.length; i++){
     if(stocks[i].classList.contains('selected')){
       document.getElementById('stockText').innerHTML = 'Accuracy: ' + (JSON.parse(eval('stockArray' + i).innerHTML).accuracy) + ' / Drawtime: ' + (JSON.parse(eval('stockArray' + i).innerHTML).drawtime);
+      document.getElementById('stockText').setAttribute('data-text', 'Accuracy: ' + (JSON.parse(eval('stockArray' + i).innerHTML).accuracy) + ' / Drawtime: ' + (JSON.parse(eval('stockArray' + i).innerHTML).drawtime));
     }
   }
 };

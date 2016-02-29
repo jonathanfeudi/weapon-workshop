@@ -29,11 +29,11 @@ a {
   position: relative;
   margin: 0 auto; }
 
-  .glitchbody {
-    color: #44FF3B;
-    font-size: 16px;
-    position: relative;
-    margin: 0 auto; }
+.glitchbody {
+  color: #44FF3B;
+  font-size: 16px;
+  position: relative;
+  margin: 0 auto; }
 
 @keyframes noise-anim {
   0% {
