@@ -147,10 +147,10 @@ function grabAllParts(req, res, next){
       return console.error('could not connect to postgres', err);
     }
   });
-  var engines = client.query("SELECT engineid, name FROM engines;");
-  var receivers = client.query("SELECT receiverid, name FROM receivers;")
-  var barrels = client.query("SELECT barrelid, name FROM barrels;")
-  var stocks = client.query("SELECT stockid, name FROM stocks;")
+  var engines = client.query("SELECT * FROM engines;");
+  var receivers = client.query("SELECT * FROM receivers;")
+  var barrels = client.query("SELECT * FROM barrels;")
+  var stocks = client.query("SELECT * FROM stocks;")
   var engineArray = [];
   var receiverArray = [];
   var barrelArray = [];

@@ -15,6 +15,10 @@ label {
   float:left;
 }
 
+a {
+  color: #44FF3B;
+}
+
 .glitch {
   color: #44FF3B;
   font-size: 24px;

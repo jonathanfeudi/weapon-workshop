@@ -11,7 +11,7 @@
       <div class="container">
         <% for(var i = 0; i < results.length; i++){ %>
           <div class="col-md-2">
-            <a href="/weapons/<%= results[i].weaponid %>"><%= results[i].weaponid %> <%=results[i].name %></a>
+            <a class="glitchbody" data-text="<%=results[i].name%>"href="/weapons/<%= results[i].weaponid %>"><%=results[i].name %></a>
             <form action="/weapons/<%= results[i].weaponid %>/edit" method="GET">
               <button>Edit</button>
             </form>

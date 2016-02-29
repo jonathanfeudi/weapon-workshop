@@ -13,8 +13,8 @@ weapons.route('/')
     res.redirect('/weapons/arsenal')
   })
 
-weapons.get('/new', function(req,res){
-  res.render('pages/weapon_edit', {session: req.session})
+weapons.get('/new', db.grabAllParts, function(req,res){
+  res.render('pages/weapon_edit', {session: req.session, engines: res.engines, receivers: res.receivers, barrels: res.barrels, stocks: res.stocks})
 });
 
 weapons.get('/newpart', function(req, res){
