@@ -106,7 +106,7 @@ function displayWeaponStats(req, res, next){
       return res.status(500).json({success: false, data: err})
     }
     var weaponID = req.params.weaponid;
-    var query = client.query("SELECT w.name, e.dmgtype, e.debuff, r.dmg, r.rof, b.range, b.heat, s.accuracy, s.drawtime FROM weapons w INNER JOIN engines e ON w.engineid = e.engineid INNER JOIN receivers r ON w.receiverid = r.receiverid INNER JOIN barrels b ON w.barrelid = b.barrelid INNER JOIN stocks s ON w.stockid = s.stockid WHERE w.weaponid = "+"'"+weaponID+"';", function(err, result){
+    var query = client.query("SELECT w.name, e.name as engine, e.dmgtype, e.debuff, r.name as receiver, r.dmg, r.rof, b.name as barrel, b.range, b.heat, s.name as stock, s.accuracy, s.drawtime FROM weapons w INNER JOIN engines e ON w.engineid = e.engineid INNER JOIN receivers r ON w.receiverid = r.receiverid INNER JOIN barrels b ON w.barrelid = b.barrelid INNER JOIN stocks s ON w.stockid = s.stockid WHERE w.weaponid = "+"'"+weaponID+"';", function(err, result){
       done()
       if(err){
         return console.error('error running query', err)

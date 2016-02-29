@@ -58,7 +58,7 @@ weapons.get('/arsenal', function(req, res, next){
 
 weapons.route('/:weaponid')
   .get(db.displayWeaponStats, function(req,res){
-    res.send(res.rows)
+    res.render('pages/stats.ejs', {weapon:res.rows, session: req.session})
   })
   .delete(db.deleteWeapon, function(req,res){
     res.redirect('/')

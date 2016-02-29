@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <%- include ../partials/head %>
+  </head>
+  <body>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <%- include ../partials/nav %>
+    </nav>
+    <main>
+      <div class="container">
+          <div class="col-md-12">
+          <p class="glitchbody" data-text="Name: <%=weapon.name%>">Name: <%= weapon.name %></p>
+          <p class="glitchbody" data-text="Engine: <%=weapon.engine%>">Engine: <%= weapon.engine %></p>
+          <p class="glitchbody" data-text="Damage type: <%=weapon.dmgtype%>">Damage type: <%= weapon.dmgtype %></p>
+          <p class="glitchbody" data-text="Debuff: <%=weapon.debuff%>">Debuff: <%= weapon.debuff %></p>
+          <p class="glitchbody" data-text="Receiver: <%=weapon.receiver%>">Receiver: <%= weapon.receiver %></p>
+          <p class="glitchbody" data-text="Damage: <%=weapon.dmg%>">Damage: <%= weapon.dmg %></p>
+          <p class="glitchbody" data-text="Rate of Fire: <%=weapon.rof%>">Rate of Fire: <%= weapon.rof %></p>
+          <p class="glitchbody" data-text="Barrel: <%=weapon.barrel%>">Barrel: <%= weapon.barrel %></p>
+          <p class="glitchbody" data-text="Range: <%=weapon.range%>">Range: <%= weapon.range %></p>
+          <p class="glitchbody" data-text="Heat: <%=weapon.heat%>">Heat: <%= weapon.heat %></p>
+          <p class="glitchbody" data-text="Stock: <%=weapon.stock%>">Stock: <%= weapon.stock %></p>
+          <p class="glitchbody" data-text="Accuracy: <%=weapon.accuracy%>">Accuracy: <%= weapon.accuracy %></p>
+          <p class="glitchbody" data-text="Drawtime: <%=weapon.drawtime%>">Drawtime: <%= weapon.drawtime %></p>
+        </div>
+    </div>
+    </main>
+  </body>
+</html>
