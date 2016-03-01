@@ -7,7 +7,7 @@
             <% if (session.user){ %>
             <div><a class="col-md-4 glitchbody" data-text="Logged in as: <%= session.user.email%>" href="#">Logged in as: <%= session.user.email %></a></div>
             <form method="post" action="/users/logout?_method=DELETE">
-              <button id="logout">Logout</button>
+              <input type="submit" value="Logout"id="logout">
             </form>
             <% } %>
       </div>
