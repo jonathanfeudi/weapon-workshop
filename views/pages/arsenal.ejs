@@ -13,10 +13,10 @@
           <div class="col-md-2">
             <a class="glitchbody" data-text="<%=results[i].name%>"href="/weapons/<%= results[i].weaponid %>"><%=results[i].name %></a>
             <form action="/weapons/<%= results[i].weaponid %>/edit" method="GET">
-              <button>Edit</button>
+              <input type="submit" value="Edit">
             </form>
             <form action="/weapons/<%= results[i].weaponid %>?_method=DELETE" method="POST">
-              <button>Delete</button>
+              <input type="submit" value="Delete">
             </form>
           </div>
         <% } %>

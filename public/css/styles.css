@@ -167,3 +167,8 @@ a {
 .selected {
   border: 1px solid green;
 }
+
+input {
+  background-color: transparent;
+  color: #44FF3B;
+}
