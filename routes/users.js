@@ -32,7 +32,6 @@ users.get('/login', function(req, res){
 users.post('/login', db.loginUser, function(req, res){
   req.session.user = res.rows;
   req.session.save(function(){
-    console.log(req.session);
     res.redirect('/')
   });
 });
