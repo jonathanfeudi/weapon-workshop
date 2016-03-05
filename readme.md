@@ -1,3 +1,5 @@
+blasterbench.herokuapp.com
+
 #Blaster-Bench
 
 Blaster-Bench is a CRUD application where users can create accounts, create, save, and edit schematics for sci-fi weapons. Users select from a number of modules occupying 4 different weapon slots. Admins are additionally able to create new weapon parts, as well as delete existing ones from the database.

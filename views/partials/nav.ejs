@@ -1,13 +1,13 @@
 <div class="container">
             <div><a class="col-md-1 glitchbody" data-text="Home"href="/">Home</a></div>
             <div><a class="col-md-1 glitchbody" data-text="Arsenal"href="/weapons/arsenal">Arsenal</a></div>
-            <div><a class="col-md-3 glitchbody" data-text="Create a new weapon" href="/weapons/new">Create a new weapon</a></div>
+            <div><a class="col-md-2 glitchbody" data-text="Create Weapon" href="/weapons/new">Create Weapon</a></div>
             <div><a class="col-md-2 glitchbody" data-text="Login/Register" href="/users/login">Login/Register</a></div>
-            <div><a class="col-md-2 glitchbody" data-text="Admin Portal" href="/users/admin">Admin Portal</a></div>
+            <div><a class="col-md-1 glitchbody" data-text="Admin" href="/users/admin">Admin</a></div>
             <% if (session.user){ %>
-            <div><a class="col-md-4 glitchbody" data-text="Logged in as: <%= session.user.email%>" href="#">Logged in as: <%= session.user.email %></a></div>
+            <div><a class="col-md-2 glitchbody" data-text="Logged in as: <%= session.user.email%>" href="#">Logged in as: <%= session.user.email %></a></div>
             <form method="post" action="/users/logout?_method=DELETE">
-              <input type="submit" value="Logout"id="logout">
+              <input class="col-md-1" type="submit" value="Logout"id="logout">
             </form>
             <% } %>
       </div>
